@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcel Heck – Portfolio</title>
+  <meta name="description" content="Portfolio von Marcel Heck – Drei Perspektiven, ein Profil." />
+  <meta property="og:title" content="Marcel Heck – Portfolio" />
+  <meta property="og:description" content="Drei Perspektiven, ein Profil." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --text: #1a1a2e;
+      --text-secondary: #64748b;
+      --bg: #fafaf9;
+      --bg-section: #ffffff;
+      --border: #e8e8e4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250,250,249,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 20px;
+      color: var(--text); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 8px; color: var(--text);
+    }
+    .nav-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-mobile.open {
+        display: flex; flex-direction: column; gap: 16px;
+        background: rgba(250,250,249,0.98); backdrop-filter: blur(12px);
+        padding: 16px 24px; border-bottom: 1px solid var(--border);
+      }
+      .nav-mobile a {
+        font-size: 16px; font-weight: 500;
+        color: var(--text-secondary); text-decoration: none;
+      }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 24px; }
+    .section-white { background: var(--bg-section); }
+    .section-alt { background: var(--bg); }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .section-title {
+      font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 700;
+      color: var(--text); letter-spacing: -0.8px;
+      margin-bottom: 48px; padding-bottom: 16px; position: relative;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 40px; height: 3px; background: var(--accent); border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; padding: 120px 24px 80px;
+      background: linear-gradient(180deg, var(--bg) 0%, #f0f0ec 100%);
+      text-align: center;
+    }
+    .hero-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-light), var(--border));
+      margin: 0 auto 32px; display: flex; align-items: center;
+      justify-content: center; font-size: 40px; color: var(--accent);
+      font-family: 'Sora', sans-serif; font-weight: 700;
+      border: 3px solid var(--bg-section);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(36px, 6vw, 56px); font-weight: 700;
+      color: var(--text); line-height: 1.1;
+      letter-spacing: -1.5px; margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;
+    }
+    .hero-tagline {
+      font-size: 15px; color: var(--text-secondary);
+      font-style: italic; opacity: 0.8; margin-bottom: 36px;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+      padding: 12px 28px; border-radius: 8px; background: var(--accent);
+      color: #fff; text-decoration: none;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+    }
+    .btn-secondary {
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+      padding: 12px 28px; border-radius: 8px;
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border); text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    /* ── ABOUT ── */
+    .about p {
+      font-size: 17px; line-height: 1.85; margin-bottom: 20px;
+    }
+    .about p:last-of-type { margin-bottom: 0; }
+    .lang-tags { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .lang-tag {
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px; border-radius: 20px;
+      background: var(--accent-light); color: var(--accent);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .exp-role {
+      font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--text); letter-spacing: -0.3px;
+    }
+    .exp-company {
+      font-size: 15px; color: var(--accent);
+      margin-top: 4px; font-weight: 500;
+    }
+    .exp-period {
+      font-size: 13px; color: var(--text-secondary);
+      white-space: nowrap; background: rgba(232,232,228,0.5);
+      padding: 4px 12px; border-radius: 12px;
+    }
+    .exp-bullets {
+      list-style: none; margin-top: 12px; padding: 0;
+    }
+    .exp-bullets li {
+      font-size: 15px; color: var(--text-secondary);
+      line-height: 1.7; padding-left: 18px; position: relative;
+      margin-bottom: 4px;
+    }
+    .exp-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 8px;
+    }
+    .edu-degree {
+      font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600;
+      color: var(--text);
+    }
+    .edu-school {
+      font-size: 15px; color: var(--accent);
+      margin-top: 4px; font-weight: 500;
+    }
+    .edu-detail {
+      font-size: 14px; color: var(--text-secondary);
+      margin-top: 8px; line-height: 1.6;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .cert-card {
+      padding: 20px 24px; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--bg-section);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cert-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 16px rgba(37,99,235,0.08);
+    }
+    .cert-name {
+      font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600;
+      color: var(--text); line-height: 1.4; margin-bottom: 6px;
+    }
+    .cert-issuer {
+      font-size: 13px; color: var(--text-secondary);
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      padding: 32px; border-radius: 16px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(219,234,254,0.25), var(--bg));
+    }
+    .project-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 12px;
+      background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600; margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .project-title {
+      font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700;
+      color: var(--text); letter-spacing: -0.5px; margin-bottom: 12px;
+    }
+    .project-desc {
+      font-size: 16px; color: var(--text-secondary);
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .project-tag {
+      font-size: 12px; font-weight: 500;
+      padding: 4px 12px; border-radius: 6px;
+      background: var(--bg-section); border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    /* ── CONTACT ── */
+    .contact { text-align: center; }
+    .contact h2 {
+      font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 700;
+      color: var(--text); letter-spacing: -0.8px; margin-bottom: 16px;
+    }
+    .contact-text {
+      font-size: 17px; color: var(--text-secondary);
+      line-height: 1.7; margin-bottom: 36px;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .contact-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .contact-link {
+      font-size: 15px; font-weight: 500;
+      padding: 14px 32px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: var(--bg-section);
+      color: var(--text); text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer {
+      margin-top: 80px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer p {
+      font-size: 13px; color: rgba(100,116,139,0.6);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .fade-in.d1 { transition-delay: 0.1s; }
+    .fade-in.d2 { transition-delay: 0.2s; }
+    .fade-in.d3 { transition-delay: 0.25s; }
+    .fade-in.d4 { transition-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Marcel<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">Über mich</a>
+      <a href="#experience">Erfahrung</a>
+      <a href="#education">Ausbildung</a>
+      <a href="#certifications">Zertifikate</a>
+      <a href="#projects">Projekte</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 7h18" /><path d="M3 12h18" /><path d="M3 17h18" />
+      </svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">Über mich</a>
+    <a href="#experience" onclick="closeMenu()">Erfahrung</a>
+    <a href="#education" onclick="closeMenu()">Ausbildung</a>
+    <a href="#certifications" onclick="closeMenu()">Zertifikate</a>
+    <a href="#projects" onclick="closeMenu()">Projekte</a>
+    <a href="#contact" onclick="closeMenu()">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <div class="fade-in">
+      <div class="hero-avatar">MK</div>
+    </div>
+    <div class="fade-in d1">
+      <h1>Marcel Heck</h1>
+    </div>
+    <div class="fade-in d3">
+      <p class="hero-tagline">Technische Ausbildung · Kaufmännische Weiterbildung · Internationales Ingenieurstudium</p>
+    </div>
+    <div class="fade-in d4">
+      <div class="hero-buttons">
+        <a href="https://www.linkedin.com/in/marcel-koegel/" target="_blank" rel="noopener" class="btn-primary">LinkedIn</a>
+        <a href="#contact" class="btn-secondary">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-white" id="about">
+  <div class="container about">
+    <h2 class="section-title fade-in">Über mich</h2>
+    <div class="fade-in d1">
+      <p>Drei Perspektiven, ein Profil: Mit einer dualen Ausbildung als Systemelektroniker, einer kaufmännischen Weiterbildung zum Staatlich geprüften Betriebswirt und einem internationalen Wirtschaftsingenieur-Studium bringe ich eine seltene Kombination aus technischem Verständnis und kommerziellem Denken mit.</p>
+    </div>
+    <div class="fade-in d2">
+      <p>Meine Bachelorarbeit zum Thema LLM-gestütztes Process Mining verband KI-Forschung mit realer Prozessoptimierung – ein Thema, das mich bis heute antreibt. Ob im internationalen B2B-Vertrieb bei Bosch, in der M&A-Beratung bei DealCircle oder im Luxury Retail bei Breitling: Ich bewege mich sicher an der Schnittstelle zwischen Technik und Business.</p>
+    </div>
+    <div class="fade-in d3">
+      <p>Ich suche eine Rolle im Bereich Tech Sales, Pre-Sales oder AI Commercial – idealerweise in der Schweiz – wo ich technische Lösungen verständlich machen und kommerziell erfolgreich positionieren kann.</p>
+    </div>
+    <div class="fade-in d3">
+      <div class="lang-tags">
+        <span class="lang-tag">Deutsch (Muttersprache)</span>
+        <span class="lang-tag">Englisch (fließend)</span>
+        <span class="lang-tag">Spanisch (gut)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section-alt" id="experience">
+  <div class="container">
+    <h2 class="section-title fade-in">Berufserfahrung</h2>
+
+    <div class="exp-item fade-in">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Working Student – International B2B Sales & AI Training</div>
+          <div class="exp-company">Bosch eBike Systems · Stuttgart</div>
+        </div>
+        <span class="exp-period">2024 – 2025</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Internationaler B2B-Vertrieb mit OEM-Partnern in EMEA & APAC</li>
+        <li>Eigenständige Konzeption und Durchführung von AI/LLM-Schulungen für Fachabteilungen</li>
+        <li>Markt- und Wettbewerbsanalysen zur strategischen Vertriebssteuerung</li>
+      </ul>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Analyst – Fintech M&A Advisory</div>
+          <div class="exp-company">DealCircle · Hamburg (Remote)</div>
+        </div>
+        <span class="exp-period">2023 – 2024</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>1.000+ C-Level Cold Calls zur Identifikation von M&A-Targets im DACH-Raum</li>
+        <li>Erstellung von Investorenprofilen und Marktanalysen für Transaktionsmandate</li>
+        <li>CRM-Pflege und Pipeline-Management in HubSpot</li>
+      </ul>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Intern – International Partner Management</div>
+          <div class="exp-company">TRUMPF · Ditzingen</div>
+        </div>
+        <span class="exp-period">2023</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Betreuung internationaler Vertriebspartner und Koordination von Partneranfragen</li>
+        <li>Unterstützung bei der Analyse und Optimierung von Partnerprozessen</li>
+      </ul>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Sales Advisor – Luxury B2C</div>
+          <div class="exp-company">Breitling · Stuttgart</div>
+        </div>
+        <span class="exp-period">2022 – 2023</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Beratung und Verkauf im Luxussegment mit Fokus auf Kundenerlebnis</li>
+        <li>Aufbau langfristiger Kundenbeziehungen und After-Sales-Betreuung</li>
+      </ul>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">International Intern</div>
+          <div class="exp-company">Meditec Medical · Dublin, Ireland</div>
+        </div>
+        <span class="exp-period">2022</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Internationale Praxiserfahrung im Medizintechnik-Vertrieb</li>
+        <li>Marktrecherche und Unterstützung im Business Development</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section-white" id="education">
+  <div class="container">
+    <h2 class="section-title fade-in">Ausbildung</h2>
+
+    <div class="edu-item fade-in">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">B.Sc. Internationales Wirtschaftsingenieurwesen</div>
+          <div class="edu-school">ESB Business School, Hochschule Reutlingen</div>
+        </div>
+        <span class="exp-period">2021 – 2026</span>
+      </div>
+      <p class="edu-detail">Thesis: LLM-gestütztes Process Mining (Note 1.6) · Auslandssemester Santiago de Chile</p>
+    </div>
+
+    <div class="edu-item fade-in">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">Staatlich geprüfter Betriebswirt – Marketing & Vertriebsmanagement</div>
+          <div class="edu-school">DQR Level 6</div>
+        </div>
+        <span class="exp-period">2019 – 2021</span>
+      </div>
+    </div>
+
+    <div class="edu-item fade-in">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">Systemelektroniker (IHK)</div>
+          <div class="edu-school">Eggs Elektronik GmbH</div>
+        </div>
+        <span class="exp-period">2016 – 2019</span>
+      </div>
+      <p class="edu-detail">Duale Ausbildung</p>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section-alt" id="certifications">
+  <div class="container">
+    <h2 class="section-title fade-in">Zertifikate</h2>
+    <div class="cert-grid">
+      <div class="cert-card fade-in">
+        <div class="cert-name">NVIDIA AI Infrastructure & Operations Fundamentals</div>
+        <div class="cert-issuer">NVIDIA · 2025</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-name">AWS Cloud Technical Essentials</div>
+        <div class="cert-issuer">Amazon Web Services · 2025</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-name">Microsoft Azure Cloud Fundamentals</div>
+        <div class="cert-issuer">Microsoft · 2025</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-name">Google Cybersecurity Professional Certificate</div>
+        <div class="cert-issuer">Google · 2024</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-name">Microsoft Generative AI for Sales</div>
+        <div class="cert-issuer">Microsoft · 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section-white" id="projects">
+  <div class="container">
+    <h2 class="section-title fade-in">Projekte</h2>
+    <div class="project-card fade-in">
+      <span class="project-badge">BACHELORARBEIT</span>
+      <h3 class="project-title">LLM-gestütztes Process Mining</h3>
+      <p class="project-desc">
+        Anwendung von Large Language Models auf reale Geschäftsprozesse mittels PM4Py, der Claude API und Python. Die Arbeit identifizierte das „Infrastructure Paradox": Unternehmen mit dem größten Process-Mining-Potenzial verfügen oft über die schlechteste Dateninfrastruktur.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">PM4Py</span>
+        <span class="project-tag">Claude API</span>
+        <span class="project-tag">Process Mining</span>
+        <span class="project-tag">LLM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-alt contact" id="contact">
+  <div class="container">
+    <div class="fade-in">
+      <h2>Let's connect</h2>
+      <p class="contact-text">Interesse an einer Zusammenarbeit oder einfach Lust auf einen Austausch? Ich freue mich auf Ihre Nachricht.</p>
+    </div>
+    <div class="fade-in d1">
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/marcel-koegel/" target="_blank" rel="noopener" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:marcel@example.com" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+          E-Mail
+        </a>
+      </div>
+    </div>
+    <div class="footer fade-in d2">
+      <p>© 2026 Marcel Heck · Built with purpose</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
